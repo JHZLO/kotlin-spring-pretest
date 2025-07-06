@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.data.domain.Pageable
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 
 
 @Service
@@ -44,5 +45,15 @@ class ChatService(
     @Transactional(readOnly = true)
     fun getThreadHistory(threadId: Long): List<Chat> {
         return chatRepository.findByChatThreadId(threadId, Sort.by(Sort.Direction.ASC, "createdAt"))
+    }
+
+    @Transactional(readOnly = true)
+    fun countCreatedBetween(start: LocalDateTime, end: LocalDateTime): Long {
+        return chatRepository.countByCreatedAtBetween(start, end)
+    }
+
+    @Transactional(readOnly = true)
+    fun findCreatedBetween(start: LocalDateTime, end: LocalDateTime): List<Chat> {
+        return chatRepository.findByCreatedAtBetween(start, end)
     }
 }

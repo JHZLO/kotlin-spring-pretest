@@ -5,6 +5,7 @@ import com.jhzlo.pretest.auth.dto.SignUpRequest
 import com.jhzlo.pretest.auth.service.AuthService
 import com.jhzlo.pretest.common.infrastructure.exception.BadRequestException
 import com.jhzlo.pretest.common.infrastructure.jwt.JwtProvider
+import com.jhzlo.pretest.report.domain.service.LoginHistoryService
 import com.jhzlo.pretest.user.domain.entity.User
 import com.jhzlo.pretest.user.domain.service.UserService
 import jakarta.servlet.http.HttpServletRequest
@@ -18,6 +19,7 @@ class AuthFacade(
     private val userService: UserService,
     private val jwtProvider: JwtProvider,
     private val authService: AuthService,
+    private val loginHistoryService: LoginHistoryService,
     private val passwordEncoder: PasswordEncoder
 ) {
 
@@ -42,6 +44,8 @@ class AuthFacade(
         val refreshToken = jwtProvider.generateRefreshToken(user.id)
 
         authService.login(accessToken, refreshToken, response)
+
+        loginHistoryService.save(user.id) // 로그인 수 기록하기
     }
 
     fun logout(request: HttpServletRequest, response: HttpServletResponse) {

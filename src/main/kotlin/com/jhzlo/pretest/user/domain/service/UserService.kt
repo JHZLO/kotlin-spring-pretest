@@ -1,11 +1,13 @@
 package com.jhzlo.pretest.user.domain.service
 
 import com.jhzlo.pretest.user.domain.entity.User
+import com.jhzlo.pretest.user.domain.entity.vo.UserRole
 import com.jhzlo.pretest.user.domain.repository.UserRepository
 import org.apache.coyote.BadRequestException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 
 @Service
 class UserService(
@@ -39,5 +41,14 @@ class UserService(
     @Transactional(readOnly = true)
     fun findById(id: Long): User? {
         return userRepository.findByIdOrNull(id)
+    }
+
+    @Transactional(readOnly = true)
+    fun countCreatedBetween(start: LocalDateTime, end: LocalDateTime): Long {
+        return userRepository.countByCreatedAtBetween(start, end)
+    }
+
+    fun getRoleById(userId: Long): UserRole {
+        return getById(userId).userRole
     }
 }
