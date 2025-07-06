@@ -2,6 +2,9 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: pretest
+
   datasource:
     url: jdbc:postgresql://localhost:5432/mydb
     username: myuser
