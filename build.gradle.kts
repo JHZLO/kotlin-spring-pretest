@@ -33,6 +33,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
 
+    // security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
+    // jwt
+    implementation("io.jsonwebtoken:jjwt-api:0.12.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.5")
+
     // Exposed
     implementation("org.jetbrains.exposed:exposed-core:0.48.0")
     implementation("org.jetbrains.exposed:exposed-dao:0.48.0")
