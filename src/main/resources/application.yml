@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydb
+    username: myuser
+    password: mypassword
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  ai:
+    openai:
+      api-key: ${OPEN_AI_KEY}
+      embedding:
+        options:
+          model: text-embedding-3-small
+
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
