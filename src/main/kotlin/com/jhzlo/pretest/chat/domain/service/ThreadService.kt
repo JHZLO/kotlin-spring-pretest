@@ -3,6 +3,7 @@ package com.jhzlo.pretest.chat.domain.service
 import com.jhzlo.pretest.chat.domain.repository.ChatThreadRepository
 import com.jhzlo.pretest.chat.domain.entity.ChatThread
 import com.jhzlo.pretest.user.domain.entity.vo.UserRole
+import org.apache.coyote.BadRequestException
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
@@ -24,14 +25,14 @@ class ThreadService(
 
     fun getThreadById(threadId: Long): ChatThread {
         return chatThreadRepository.findById(threadId)
-            .orElseThrow { IllegalArgumentException("스레드가 존재하지 않습니다.") }
+            .orElseThrow { BadRequestException("pretest.chat.not-exist-thread")}
     }
 
     fun deleteThread(userId: Long, threadId: Long, userRole: UserRole) {
         val thread = getThreadById(threadId)
 
         if (userRole != UserRole.ADMIN && thread.userId != userId) {
-            throw IllegalAccessException("권한이 없습니다.")
+            throw BadRequestException("pretest.chat.invalid-role")
         }
         chatThreadRepository.delete(thread)
     }

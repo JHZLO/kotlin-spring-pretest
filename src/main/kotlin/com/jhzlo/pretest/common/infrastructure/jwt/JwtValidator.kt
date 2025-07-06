@@ -46,7 +46,7 @@ class JwtValidator(
             Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build()
                 .parseSignedClaims(token).payload.subject
         } catch (e: Exception) {
-            throw BadRequestException("objectstorage.auth.invalid-token")
+            throw BadRequestException("pretest.auth.invalid-token")
         }
     }
 
@@ -57,7 +57,7 @@ class JwtValidator(
             val roleRaw = claims["role", String::class.java]
             UserRole.valueOf(roleRaw)
         } catch (e: Exception) {
-            throw BadRequestException("objectstorage.auth.invalid-token")
+            throw BadRequestException("pretest.auth.invalid-token")
         }
     }
 

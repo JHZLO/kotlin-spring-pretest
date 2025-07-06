@@ -4,6 +4,7 @@ import com.jhzlo.pretest.chat.domain.entity.Chat
 import com.jhzlo.pretest.chat.domain.entity.ChatThread
 import com.jhzlo.pretest.chat.domain.repository.ChatRepository
 import com.jhzlo.pretest.user.domain.entity.vo.UserRole
+import org.apache.coyote.BadRequestException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
@@ -26,7 +27,7 @@ class ChatService(
 
     fun getThreadChats(userId: Long, chatThread: ChatThread, pageable: Pageable, userRole: UserRole): Page<Chat> {
         if (userRole != UserRole.ADMIN && chatThread.userId != userId) {
-            throw IllegalAccessException("권한이 없습니다.")
+            throw BadRequestException("pretest.chat.not-found")
         }
         return chatRepository.findByChatThreadId(chatThread.id, pageable)
     }

@@ -33,7 +33,7 @@ class LoginUserArgumentResolver : HandlerMethodArgumentResolver {
         return if (parameter.parameterType == java.lang.Long::class.java) {
             null
         } else {
-            throw BadRequestException("objectstorage.auth.user-empty")
+            throw BadRequestException("pretest.auth.user-empty")
         }
     }
 }
