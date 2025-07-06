@@ -37,7 +37,7 @@ class FeedbackService(
 
     @Transactional(readOnly = true)
     fun getFeedbackList(
-        userId: String?,
+        userId: String,
         userRole: UserRole,
         isPositive: Boolean?,
         pageable: Pageable
@@ -54,7 +54,7 @@ class FeedbackService(
                     .filter { it.userId == userId && it.isPositive == isPositive }
                     .let { PageImpl(it, pageable, it.size.toLong()) }
             } else {
-                feedbackRepository.findByUserId(userId!!, pageable)
+                feedbackRepository.findByUserId(userId, pageable)
             }
         }
     }

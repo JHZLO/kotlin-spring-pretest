@@ -33,11 +33,10 @@ class FeedbackController(
     @GetMapping
     fun getFeedbacks(
         @LoginUser userId: String,
-        @RequestParam(required = false, defaultValue = "MEMBER") userRole: UserRole,
         @RequestParam(required = false) isPositive: Boolean?,
         pageable: Pageable
     ): ApiResponse<Page<FeedbackResponse>> {
-        val result = feedbackFacade.getFeedbacks(userId, userRole, isPositive, pageable)
+        val result = feedbackFacade.getFeedbacks(userId, isPositive, pageable)
         return ApiResponse.success(result.map { it.toResponse() })
     }
 
